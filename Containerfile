@@ -1,4 +1,4 @@
-FROM fedora:43 AS builder
+FROM fedora:43
 
 WORKDIR /opt/pel/
 
