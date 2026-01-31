@@ -5,7 +5,7 @@ WORKDIR /opt/pel/
 ARG TARGETOS
 ARG TARGETARCH
 
-ARG FORMAE_VERSION=0.75.4
+ARG FORMAE_VERSION=0.80.1
 RUN dnf -y install wget tar ca-certificates && \
     dnf clean all && rm -rf /var/cache/dnf
 
