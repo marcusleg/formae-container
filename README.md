@@ -1,4 +1,6 @@
-# Forame Container
+# Formae Container
+
+A container for the [Formae](https://github.com/platform-engineering-labs/formae) agent.
 
 ## Run locally
 
