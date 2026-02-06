@@ -1,5 +1,10 @@
 # Formae Container
 
+> [!IMPORTANT]
+> This repository is archived.  
+> Platform Engineering Labs now provides an official container
+> image: https://github.com/platform-engineering-labs/formae/pkgs/container/formae
+
 A container for the [Formae](https://github.com/platform-engineering-labs/formae) agent.
 
 ## Run locally
