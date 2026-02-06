@@ -1,24 +1,19 @@
-FROM fedora:43
+FROM ubuntu:latest
 
-WORKDIR /opt/pel/
+ARG VERSION=latest
 
-ARG TARGETOS
-ARG TARGETARCH
+RUN useradd -m -s /bin/bash pel
+RUN apt-get update &&  \
+    apt-get install -y jq curl && \
+    /bin/bash -e -c "$(curl -fsSL https://hub.platform.engineering/setup/formae.sh)" -- -y -v ${VERSION} && \
+    apt-get remove -y jq curl && \
+    apt-get autoremove -y --purge && \
+    apt-get clean
 
-ARG FORMAE_VERSION=0.80.1
-RUN dnf -y install wget tar ca-certificates && \
-    dnf clean all && rm -rf /var/cache/dnf
+USER pel
+WORKDIR /home/pel
+ENV PATH=/opt/pel/formae/bin:$PATH
 
-RUN set -eux; \
-    case "${TARGETARCH}" in \
-      amd64) ARCH_SUFFIX="x8664" ;; \
-      arm64) ARCH_SUFFIX="arm64" ;; \
-      *) echo "Unsupported architecture: ${TARGETARCH}"; exit 1 ;; \
-    esac; \
-    wget -q "https://hub.platform.engineering/binaries/pkgs/formae@${FORMAE_VERSION}_linux-${ARCH_SUFFIX}.tgz" -O formae.tgz && \
-    tar -xzf formae.tgz && \
-    rm formae.tgz
-
-ENV PATH="$PATH:/opt/pel/formae/bin/"
+EXPOSE 49684
 
 CMD ["formae", "agent", "start"]
